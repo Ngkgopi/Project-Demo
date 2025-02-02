@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Budget Tracker</title>
+</head>
+<body>
+    <article>
+        <header>
+        <h1 align ="center">Personal Budget Tracker</h1>
+            <section>
+          <center><p style ="color: blue; text-decoration: underline;">Add Income Expense</center> </p>
+              <p style ="color: blue; text-decoration: underline;" align ="center">  View Budget Summary</p>
+            <form>
+            <h1 align ="center">Welcome to The Personal Budget Tracker</h1>
+            <p  align ="center"> This Tracker helps manage your monthly income  and expenses. You can add new entries  and view a detailed summary of your budget</p>
+            <h1 align ="center">Add New Income or Expense</h1>
+            <div>
+               <center><label for ="Amount">  Amount:</label><input type="number"ncopy ="return false" id="Amount"  required placeholder> </center>  
+              </div><br>
+              <!-- <div>
+
+                <center> <label for ="Category">  Category:</label> 
+                  <select name ="Category" style="width: 100px;" id="food">
+                <option value="Food"> Food</option>
+                <option value="Transporation">Transporation</option>
+                <option value="Enteriament"> Enteriament</option>
+                <option value="Salaray"> Salaray</option>
+                <option value="Savings"> Savings</option>
+                </section>
+              </center> -->
+              <div>
+<center>
+             <label for ="Category">Category:</label>
+             <select id ="Category">
+              <option value ="Food">Food</option>
+              <option value="Transporation">Transporation</option>
+              <option value="Enteriament"> Enteriament</option>
+              <option value="Salaray"> Salaray</option>
+              <option value="Savings"> Savings</option>
+            </center><
+             </select>
+               </div><br>
+              <div><center> <label for ="Description"> Description:</label>  <input type="text" oncopy ="return false" id="Description" required placeholder </center>
+              </div><br>
+              <div>
+                <center>  <label for ="Date"> Date:</label>  <input type="datetime-local" oncopy ="return false" id="Data"  required placeholder </center>
+              </div><br>
+              <center>
+                <tr>Type:</tr>
+              <input type="radio" name="Type">Income
+              <input type="radio" name="Type"> Expense</center>
+            </tr>
+              <br>
+             <center><button type="Add Entry">AddEntry</center> </button><br>
+              <h1 align ="center">Budget Summary</h1>
+            </section>
+            </form>            <table  align="center", border="3">
+              <tfoot></tfoot>
+             <thead>
+                <tr>
+                  <th rowspan="2">Category</th>
+                  <th colspan="2"> Transaction Deatils</th>
+                  
+                  <th rowspan="2">status</th>
+                  <th colspan="2">Actions</th>
+                  
+              
+                </tr>
+                <tr>
+                  <th>Amount</th>
+                  <th >Description</th>
+                </tr>
+                <tr>
+                  <td>Food</td>
+                  <td>$200</td>
+                  <td>Groceries for the week</td>
+                  <td>Completed</td>
+                  <td>Edit</td>
+                  <td>Delete</td>
+                </tr>
+               
+                <tr>
+                  <td>Transporation</td>
+                  <td>$100</td>
+                  <td>Monthly bus pass</td>
+                  <td>Completed</td>
+                  <td>Edit</td>
+                  <td>Delete</td>
+                </tr>
+                
+
+                <tr>
+                  <td>Enteriament</td>
+                  <td>$50</td><div>
+                    <td>CinemaTickets</td>
+                  <td>Completed</td>
+                  <td>Edit</td>
+                  <td>Delete</td>
+                </tr>
+                <tr>
+
+                  <td>Salaray</td>
+                  <td>$3000</td>
+                  <td>Monthly salary payment</td>
+                  <td>Completed</td>
+                  <td>Edit</td>
+                  <td>Delete</td>
+                </tr>
+                <tr>
+                  <td>Savings</td>
+                  <td>$500</td>
+                  <td>Emergency fund deposit</td>
+                  <td>Pending</td>
+                  <td>Edit</td>
+                  <td>Delete</td>
+                </tr>
+                <tr>
+                  <td rowspan="2">Utilities</td>
+                  <td>$150</td>
+                  <td>Electricity bill</td>
+                  <td>Completed</td>
+                  <td>Edit</td>
+                  <td>Delete</td>
+                </tr>
+                <tr>
+                  
+                  <td>$50</td>
+                  <td>Water bills</td>
+                  <td>Pending</td>
+                  <td>Edit</td>
+                  <td>Delete</td>
+                </tr>
+<tr>
+  
+            <td rowspan="2"> Houseing</td>
+                <td>$1200</td>
+                  <td>Monthly rent</td>
+                  <td>Completed</td>
+                  <td>Edit</td>
+                  <td>Delete</td>
+</tr>
+<tr>
+
+      <td>$300</td>
+        <td>Maintence fee</td>
+        <td>Pending</td>
+        <td>Edit</td>
+        <td>Delete</td>
+</tr>
+             </thead>
+              
+        
+                <tfoot></tfoot>
+
+ 
+</table>
+            <tfoot></tfoot>
+            <hr>
+            <p align ="center">Personal Budget Tracker- Version 1.0</p>
+        </header> 
+    </article>
+</body>
+</html>
