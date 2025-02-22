@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Application Filter</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #667eea, #764ba2);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        h1 {
+            color: #fff;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+            color: #eee;
+        }
+
+        input,
+        select {
+            padding: 12px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 8px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            color: #333;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        input:focus,
+        select:focus {
+            background-color: rgba(255, 255, 255, 0.95);
+            outline: none;
+        }
+
+        button {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            color: #fff;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            display: inline-flex;
+            align-items: center;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        #result {
+            margin-top: 30px;
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        i {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Job Application Filter</h1>
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" min="0" placeholder="Enter Age">
+
+        <label for="experience">Years of Experience:</label>
+        <input type="number" id="experience" min="0" placeholder="Enter Experience">
+
+        <label for="qualification">Qualification:</label>
+        <select id="qualification">
+            <option value="">Select Qualification</option>
+            <option value="Bachelor's Degree">Bachelor's Degree</option>
+            <option value="Master's Degree">Master's Degree</option>
+            <option value="PhD">PhD</option>
+        </select>
+
+        <button onclick="checkEligibility()"><i class="fas fa-check-circle"></i>Check Eligibility</button>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function isEligibleForJob(age, experience, qualification) {
+            // Check eligibility based on the criteria
+            if (age >= 21 && age <= 55 && experience >= 2 && qualification === "Bachelor's Degree") {
+                return true; // Eligible
+            }
+            return false; // Not eligible
+        }
+
+        function checkEligibility() {
+            const age = parseInt(document.getElementById("age").value);
+            const experience = parseInt(document.getElementById("experience").value);
+            const qualification = document.getElementById("qualification").value;
+
+            // Validate inputs
+            if (isNaN(age) || isNaN(experience) || qualification === "") {
+                document.getElementById("result").innerText = "Please fill in all fields correctly.";
+                return;
+            }
+
+            const eligible = isEligibleForJob(age, experience, qualification);
+
+            if (eligible) {
+                document.getElementById("result").innerText = "Congratulations! You are eligible for the job!";
+            } else {
+                document.getElementById("result").innerText = "Sorry, you are not eligible for the job.";
+            }
+        }
+    </script>
+</body>
+
+</html>

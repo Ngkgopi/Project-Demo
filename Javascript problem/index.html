@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Combined System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #64b3f4, #c2e59c);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            text-align: left;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 80%;
+            max-width: 800px;
+        }
+
+        h1 {
+            color: #fff;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+            color: #eee;
+        }
+
+        input,
+        select {
+            padding: 12px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 8px;
+            width: calc(100% - 24px);
+            background: rgba(255, 255, 255, 0.8);
+            color: #333;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        input:focus,
+        select:focus {
+            background-color: rgba(255, 255, 255, 0.95);
+            outline: none;
+        }
+
+        button {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(to right, #ff5e62, #ff9966);
+            color: #fff;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            display: inline-flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        #atmResult,
+        #shoppingResult,
+        #gradeResult {
+            margin-top: 30px;
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #fff;
+            text-align: center;
+        }
+
+        i {
+            margin-right: 10px;
+        }
+
+        section {
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Combined System</h1>
+
+        <section>
+            <h2>ATM Withdrawal</h2>
+            <label for="balance">Account Balance:</label>
+            <input type="number" id="balance" placeholder="Enter Balance" min="0">
+
+            <label for="amount">Withdrawal Amount:</label>
+            <input type="number" id="amount" placeholder="Enter Amount" min="0">
+
+            <label for="pin">Account PIN:</label>
+            <input type="password" id="pin" placeholder="Enter PIN">
+
+            <label for="enteredPin">Enter PIN to Confirm:</label>
+            <input type="password" id="enteredPin" placeholder="Enter PIN">
+
+            <button onclick="atmWithdrawalSystem()"><i class="fas fa-money-bill-wave"></i>Withdraw Money</button>
+            <div id="atmResult"></div>
+        </section>
+
+        <section>
+            <h2>Online Shopping</h2>
+            <label for="orderAmount">Order Amount:</label>
+            <input type="number" id="orderAmount" placeholder="Enter Order Amount" min="0">
+
+            <button onclick="onlineShoppingSystem()"><i class="fas fa-shopping-cart"></i>Calculate Final Amount</button>
+            <div id="shoppingResult"></div>
+        </section>
+
+        <section>
+            <h2>Student Grading</h2>
+            <label for="marks">Marks Obtained:</label>
+            <input type="number" id="marks" placeholder="Enter Marks" min="0" max="100">
+
+            <label for="attendance">Attendance (%):</label>
+            <input type="number" id="attendance" placeholder="Enter Attendance" min="0" max="100">
+
+            <button onclick="studentGradingSystem()"><i class="fas fa-graduation-cap"></i>Calculate Grade</button>
+            <div id="gradeResult"></div>
+        </section>
+    </div>
+
+    <script>
+        // 1. ATM Withdrawal System
+        function atmWithdrawal(balance, amount, pin, enteredPin) {
+            if (enteredPin !== pin) {
+                return "Incorrect PIN";
+            }
+
+            if (amount > balance) {
+                return "Insufficient Funds";
+            }
+
+            if (amount % 100 !== 0) {
+                return "Enter amount in multiples of 100";
+            }
+
+            return "Withdrawal Successful. Remaining Balance: $" + (balance - amount);
+        }
+
+        function atmWithdrawalSystem() {
+            const balance = parseFloat(document.getElementById("balance").value);
+            const amount = parseFloat(document.getElementById("amount").value);
+            const pin = document.getElementById("pin").value;
+            const enteredPin = document.getElementById("enteredPin").value;
+
+            const result = atmWithdrawal(balance, amount, pin, enteredPin);
+            document.getElementById("atmResult").innerText = result;
+        }
+
+        // 2. Online Shopping Discount & Free Shipping
+        function calculateFinalAmount(orderAmount) {
+            let discount = 0;
+            let shippingCharge = 0;
+
+            if (orderAmount > 1000) {
+                discount = 0.20; // 20% discount
+            } else if (orderAmount >= 500) {
+                discount = 0.10; // 10% discount
+            }
+
+            let discountedAmount = orderAmount * (1 - discount);
+
+            if (orderAmount < 50) {
+                shippingCharge = 10; // Express shipping
+            }
+
+            let finalAmount = discountedAmount + shippingCharge;
+            return finalAmount.toFixed(2);
+        }
+
+        function onlineShoppingSystem() {
+            const orderAmount = parseFloat(document.getElementById("orderAmount").value);
+
+            const finalAmount = calculateFinalAmount(orderAmount);
+            document.getElementById("shoppingResult").innerText = "Final Payable Amount: $" + finalAmount;
+        }
+
+        // 3. Student Grading System with Extra Credit
+        function calculateGrade(marks, attendance) {
+            let finalMarks = marks;
+
+            if (attendance > 90) {
+                finalMarks += 5;
+            }
+
+            let grade;
+            if (finalMarks >= 90) {
+                grade = "A";
+            } else if (finalMarks >= 80) {
+                grade = "B";
+            } else if (finalMarks >= 70) {
+                grade = "C";
+            } else if (finalMarks >= 60) {
+                grade = "D";
+            } else {
+                grade = "F";
+            }
+
+            return "Grade: " + grade;
+        }
+
+        function studentGradingSystem() {
+            const marks = parseFloat(document.getElementById("marks").value);
+            const attendance = parseFloat(document.getElementById("attendance").value);
+
+            const gradeResult = calculateGrade(marks, attendance);
+            document.getElementById("gradeResult").innerText = gradeResult;
+        }
+    </script>
+</body>
+
+</html>

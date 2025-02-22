@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-commerce Coupon Redemption</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #ff4b1f, #1fddff);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        h1 {
+            color: #fff;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+            color: #eee;
+        }
+
+        input,
+        select {
+            padding: 12px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 8px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            color: #333;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        input:focus,
+        select:focus {
+            background-color: rgba(255, 255, 255, 0.95);
+            outline: none;
+        }
+
+        button {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(to right, #81ad99, #fd5d00);
+            color: #ffffff;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        #result {
+            margin-top: 30px;
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        i {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>E-commerce Coupon Redemption</h1>
+
+        <label for="orderAmount">Order Amount:</label>
+        <input type="number" id="orderAmount" placeholder="Enter Order Amount" min="0">
+
+        <label for="couponCode">Coupon Code:</label>
+        <select id="couponCode">
+            <option value="">Select Coupon (Optional)</option>
+            <option value="DISCOUNT10">DISCOUNT10 (10% off over $500)</option>
+            <option value="FREESHIP">FREESHIP (Free shipping over $200)</option>
+        </select>
+
+        <button onclick="calculateFinalPrice()"><i class="fas fa-tag"></i>Apply Coupon</button>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function applyCoupon(orderAmount, couponCode) {
+            let finalPrice = orderAmount;
+
+            // Check for DISCOUNT10 coupon
+            if (couponCode === "DISCOUNT10" && orderAmount > 500) {
+                finalPrice *= (1 - 0.10); // Apply a discount of $10
+                return finalPrice.toFixed(2); // Return the final price with two decimal points
+                // Check for FREESHIP coupon
+                } else if (couponCode === "FREESHIP" && orderAmount >200) {
+                    return finalPrice.toFixed(2); // Free shipping does not change the order amount
+                } else if (couponCode) {
+                    return "Coupon not applicable"; // Invalid coupon usage
+                }
+            
+                return finalPrice.toFixed(2); // Return the original price if no valid coupon is applied
+              }
+
+              function calculateFinalPrice() {
+                const orderAmount = parseFloat(document.getElementById("orderAmount").value);
+                const couponCode = document.getElementById("couponCode").value;
+
+                if (isNaN(orderAmount) || orderAmount <= 0) {
+                    document.getElementById("result").innerText = "Please enter a valid order amount.";
+                    return; // Exit if the order amount is invalid
+                }
+
+                const finalPrice = applyCoupon(orderAmount, couponCode);
+
+                // Display the result based on the final price calculation
+                if (finalPrice === "Coupon not applicable") {
+                    document.getElementById("result").innerText = "Invalid coupon usage.";
+                } else {
+                    document.getElementById("result").innerText = "Final Price after coupon application is $" + finalPrice; 
+                }
+              }
+    </script>
+</body>
+
+</html>

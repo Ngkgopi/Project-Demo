@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Ticket Pricing</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #ff4b1f, #1fddff);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        h1 {
+            color: #fff;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+            color: #eee;
+        }
+
+        input[type="number"],
+        input[type="time"] {
+            padding: 12px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 8px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            color: #333;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="number"]:focus,
+        input[type="time"]:focus {
+            background-color: rgba(255, 255, 255, 0.95);
+            outline: none;
+        }
+
+        button {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            color: #fff;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            display: inline-flex;
+            align-items: center;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        #result {
+            margin-top: 30px;
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        i {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Movie Ticket Pricing</h1>
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" min="0" placeholder="Enter Age">
+
+        <label for="showTime">Show Time (HH:MM):</label>
+        <input type="time" id="showTime" value="12:00">
+
+        <button onclick="calculatePrice()"><i class="fas fa-ticket-alt"></i>Calculate Ticket Price</button>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function calculateTicketPrice(age, showTime) {
+            let basePrice = 12; // Standard price
+
+            // Matinee discount (20% off before 5 PM)
+            const showTimeHour = parseInt(showTime.split(':')[0]);
+            if (showTimeHour < 17) {
+                basePrice *= 0.8; // Apply 20% discount
+            }
+
+            // Age-based discounts
+            if (age > 60) {
+                basePrice *= 0.7; // 30% senior discount
+            } else if (age < 12) {
+                basePrice *= 0.6; // 40% children discount
+            }
+
+            return basePrice.toFixed(2); // Return price rounded to 2 decimal places
+        }
+
+        function calculatePrice() {
+            const age = document.getElementById("age").value;
+            const showTime = document.getElementById("showTime").value;
+
+            // Validate inputs
+            if (!age || !showTime) {
+                document.getElementById("result").innerText = "Please enter both age and show time.";
+                return;
+            }
+
+            if (isNaN(age)) {
+                document.getElementById("result").innerText = "Please enter a valid age.";
+                return;
+            }
+
+            const finalPrice = calculateTicketPrice(age, showTime);
+            document.getElementById("result").innerText = "Final Ticket Price: $" + finalPrice;
+        }
+    </script>
+</body>
+
+</html>

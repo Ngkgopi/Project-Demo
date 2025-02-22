@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Fare Calculator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        h1 {
+            color: #fff;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+            color: #eee;
+        }
+
+        select,
+        input[type="number"] {
+            padding: 12px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 8px;
+            width: calc(100% - 24px);
+            background: rgba(255, 255, 255, 0.8);
+            color: #333;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        select:focus,
+        input[type="number"]:focus {
+            background-color: rgba(255, 255, 255, 0.95);
+            outline: none;
+        }
+
+        button {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(to right, #ff416c, #ff4b2b);
+            color: #fff;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        #result {
+            margin-top: 30px;
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        i {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Flight Fare Calculator</h1>
+
+        <label for="classType">Select Class Type:</label>
+        <select id="classType">
+            <option value="Economy">Economy Class</option>
+            <option value="Business">Business Class (+$200)</option>
+            <option value="First">First Class (+$500)</option>
+        </select>
+
+        <label for="luggageWeight">Enter Luggage Weight (kg):</label>
+        <input type="number" id="luggageWeight" placeholder="Luggage Weight" min="0">
+
+        <label for="isStudent">Are you a Student?</label>
+        <select id="isStudent">
+            <option value="false">No</option>
+            <option value="true">Yes</option>
+        </select>
+
+        <label for="isSenior">Are you a Senior Citizen (60+)?</label>
+        <select id="isSenior">
+            <option value="false">No</option>
+            <option value="true">Yes</option>
+        </select>
+
+        <button onclick="calculateFare()"><i class="fas fa-plane"></i>Calculate Fare</button>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function calculateFlightFare(classType, luggageWeight, isStudent, isSenior) {
+          let baseFare = 300; // Base fare
+          let additionalCharge = 0;
+
+          // Determine additional charges based on class type
+          if (classType === "Business") {
+              additionalCharge += 200; // Business class charge
+          } else if (classType === "First") {
+              additionalCharge += 500; // First class charge
+          }
+
+          // Additional luggage charges
+          if (luggageWeight > 20) {
+              const extraWeight = luggageWeight - 20; // Calculate excess weight
+              additionalCharge += Math.ceil(extraWeight /10) *50; // $50 for every extra kg over the limit
+          }
+
+          let totalFare = baseFare + additionalCharge;
+
+          // Apply discounts
+          if (isStudent === "true") {
+              totalFare *= (1 - 0.15); // Apply student discount of %15
+          } else if (isSenior === "true") {
+              totalFare *= (1 - .10); // Apply senior discount of %10
+          }
+
+          return totalFare.toFixed(2); // Return the final fare rounded to two decimal places
+      }
+
+      function calculateFare() {
+          const classType = document.getElementById("classType").value; // Get selected class type
+          const luggageWeight = parseFloat(document.getElementById("luggageWeight").value); // Get luggage weight
+          const isStudent = document.getElementById("isStudent").value; // Check if student
+          const isSenior = document.getElementById("isSenior").value; // Check if senior citizen
+
+          if (isNaN(luggageWeight) || luggageWeight <0) { // Validate luggage weight input
+              document.getElementById("result").innerText = "Please enter a valid luggage weight.";
+              return; 
+          }
+
+          const totalFare = calculateFlightFare(classType, luggageWeight, isStudent, isSenior); // Calculate fare
+
+          document.getElementById("result").innerText = "Total Flight Fare: $" + totalFare; // Display result
+      }
+    </script>
+</body>
+
+</html>

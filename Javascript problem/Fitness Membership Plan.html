@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Membership Plan</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #43cea2, #185a9d);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        h1 {
+            color: #fff;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+            color: #eee;
+        }
+
+        select {
+            padding: 12px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 8px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            color: #333;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        select:focus {
+            background-color: rgba(255, 255, 255, 0.95);
+            outline: none;
+        }
+
+        button {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(to right, #ff9966, #ff5e62);
+            color: #fff;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            display: inline-flex;
+            align-items: center;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        #result {
+            margin-top: 30px;
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        i {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Fitness Membership Plan</h1>
+
+        <label for="wantsTrainer">Want a Personal Trainer?</label>
+        <select id="wantsTrainer">
+            <option value="false">No</option>
+            <option value="true">Yes</option>
+        </select>
+
+        <label for="wantsDietPlan">Want a Diet Plan?</label>
+        <select id="wantsDietPlan">
+            <option value="false">No</option>
+            <option value="true">Yes</option>
+        </select>
+
+        <button onclick="suggestPlan()"><i class="fas fa-dumbbell"></i>Suggest Membership Plan</button>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function choosePlan(wantsTrainer, wantsDietPlan) {
+            if (wantsTrainer === "true" && wantsDietPlan === "true") {
+                return "VIP ($80/month): Gym + Trainer + Diet Plan";
+            } else if (wantsTrainer === "true") {
+                return "Premium ($50/month): Gym + Personal Trainer";
+            } else {
+                return "Basic ($20/month): Only gym access";
+            }
+        }
+
+        function suggestPlan() {
+            const wantsTrainer = document.getElementById("wantsTrainer").value;
+            const wantsDietPlan = document.getElementById("wantsDietPlan").value;
+
+            const suggestedPlan = choosePlan(wantsTrainer, wantsDietPlan);
+            document.getElementById("result").innerText = "Suggested Plan: " + suggestedPlan;
+        }
+    </script>
+</body>
+
+</html>
